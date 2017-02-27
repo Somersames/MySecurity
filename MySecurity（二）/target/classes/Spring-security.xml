@@ -1,0 +1,19 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-4.1.xsd">
+	<security:http auto-config="true">
+		<security:intercept-url pattern="/index.jsp" access="hasRole('ROLE_ADMIN')" /><!-- 在这里注意下，access后面直接写"ROLE_ADMIN"这里会提示出错，就是找不到这种ROLE_ADMIN这种类型 -->
+	    <security:intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')" />
+	</security:http>
+	<!-- 在这里也是一个大坑，查询网上的文章，这里都是引用的实现了UserDetailsService的类 -->
+	<bean id="MyUserService" class="szh.security.security.SecurityProvider"></bean>
+	<security:authentication-manager>
+		<security:authentication-provider
+			ref="MyUserService">
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>

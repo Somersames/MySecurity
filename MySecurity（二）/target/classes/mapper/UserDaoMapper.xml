@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="szh.security.dao.UserDao">
+<resultMap type="MyUser" id="myuser">
+<id column="user_id" property="user_id"/>
+<result column="user_name" property="user_name"/>
+<result column="user_password" property="user_password"/>
+<result column="user_role" property="user_role"/>
+</resultMap>
+	<select id="getUserByName" resultMap="myuser" >
+	select * from users
+	<where>
+	user_name=#{username}
+	</where>
+	</select>
+</mapper>
